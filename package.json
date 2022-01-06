@@ -18,9 +18,8 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "deploy": "rm -rf docs && npm run build",
     "start": "react-scripts start",
-    "build": "react-scripts build && mv build docs",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
