@@ -10,8 +10,6 @@ jobs:
       - uses: actions/checkout@v2
         with: 
           ref: gh-pages
-      - run: |
-        git clean  -d  -f .
       - name: Create build from main branch
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
