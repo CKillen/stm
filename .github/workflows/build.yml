@@ -1,43 +1,30 @@
-name: GitHub Pages
-
+name: Build gh-pages
 on:
   push:
-    branches:
-      - main
-  pull_request:
-
+    branches: [ main ]
 jobs:
-  deploy:
-    runs-on: ubuntu-20.04
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+  build-gh-pages:
+    runs-on: ubuntu-latest      
     steps:
       - uses: actions/checkout@v2
-
-      - name: Setup Node
-        uses: actions/setup-node@v2
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          rm -r docs
+          git add .
+          git commit -m "generated"
+          git push
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
-          node-version: '14'
-
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Cache dependencies
-        uses: actions/cache@v2
+          node-version: 12
+      - run: npm ci
+      - run: npm run build
+      - name: Commit files
+        id: auto-commit-action
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
-      - run: yarn export
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+          file_pattern: docs/*
+          branch: gh-pages
+          commit_message: build project for github pages
+          push_options: '--force'
