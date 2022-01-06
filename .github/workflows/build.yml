@@ -12,9 +12,9 @@ jobs:
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          rm -rf docs
+          rm -rf *
           git add .
-          git commit --allow-empty -m "generated"
+          git commit --allow-empty -m "Build Reset"
           git push
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -22,12 +22,11 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm run build
-      - run: mv build docs
+      - run: cd build
       - name: Commit files
         id: auto-commit-action
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          file_pattern: docs/*
           branch: gh-pages
-          commit_message: build project for github pages
+          commit_message: Build 
           push_options: '--force'
