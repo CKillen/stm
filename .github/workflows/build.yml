@@ -10,7 +10,7 @@ jobs:
         with:
           ref: gh-pages
       - run: |
-          mkdir docs
+          rm -r docs
           git add .
           git commit -m "generated"
           git push
