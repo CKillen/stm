@@ -7,9 +7,10 @@ jobs:
     runs-on: ubuntu-latest      
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: gh-pages
       - run: |
-        git branch gh-pages
-        git clean  -d  -f .
+          git clean  -d  -f .
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
