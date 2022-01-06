@@ -11,6 +11,12 @@ jobs:
           ref: gh-pages
       - run: |
           git clean  -d  -f .
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
