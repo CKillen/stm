@@ -6,13 +6,10 @@ jobs:
   build-gh-pages:
     runs-on: ubuntu-latest      
     steps:
-      - name: clean gh-pages
       - uses: actions/checkout@v2
-        with: 
-          ref: gh-pages
       - run: |
+        git branch gh-pages
         git clean  -d  -f .
-      - name: Create build from main branch
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
