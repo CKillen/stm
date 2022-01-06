@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest      
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: gh-pages
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -20,7 +22,6 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm run build
-      - run: mv build docs
       - name: Commit files
         id: auto-commit-action
         uses: stefanzweifel/git-auto-commit-action@v4
