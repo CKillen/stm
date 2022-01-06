@@ -22,12 +22,12 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm run build
-      - run: mv build docs
+      - run: mv build ~\temp\build 
       - name: Commit files
         id: auto-commit-action
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          file_pattern: docs/*
+          repository: ~\temp\build
           branch: gh-pages
           commit_message: Build 
           push_options: '--force'
