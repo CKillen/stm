@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import Header from './Components/Header/Header';
+import SideSection from './Components/Side/SideSection';
 
 function App() {
+  const [reactableComponents, setReactableComponents] = useState([]);
+  const [id, incrementId] = useState(0);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-           Finished for real :)
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SideSection />
+      <Header setReactableComponents={setReactableComponents} id={id} setId={() => incrementId(id + 1)} />
+      <div className="main">
+        {reactableComponents.map(component => {
+          return component;
+        })}
+      </div>
     </div>
   );
 }

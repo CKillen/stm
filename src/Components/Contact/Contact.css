@@ -1,0 +1,12 @@
+.contact-rep {
+  width: 100%;
+}
+
+.segment-no-margin {
+  margin: 0 !important;
+}
+
+.dark {
+  background-color: #2f2f2f !important;
+  color: #c4c4c4;
+}
