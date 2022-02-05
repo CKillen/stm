@@ -21,6 +21,8 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
+        env:
+          CI: false
       - run: npm run build
       - name: Commit files
         id: auto-commit-action
